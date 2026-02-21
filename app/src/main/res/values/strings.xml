@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="subscriptions_title">My news</string>
+    <string name="update_articles">Update articles</string>
+    <string name="clear_articles">Clear articles</string>
+    <string name="settings_screen">Settings screen</string>
+    <string name="remove_subscription">Remove subscription</string>
+    <string name="what_interests_you">What interests you?</string>
+    <string name="add_subscription">Add subscription</string>
+    <string name="add_subscription_button">Add subscriptions</string>
+    <string name="subscriptions">Subscriptions (%1$d)</string>
+    <string name="no_subscriptions">No subscriptions</string>
+    <string name="image_for_article">Image for article %1$s</string>
+    <string name="read_article">Read article</string>
+    <string name="read">Read</string>
+    <string name="share">Share</string>
+    <string name="share_article">Share article</string>
+    <string name="articles">Articles (%1$d)</string>
+    <string name="no_articles_for_selected_subscriptions">No articles for selected subscriptions</string>
+    <string name="new_articles">New articles</string>
+    <string name="new_articles_notification_title">New articles</string>
+    <string name="update_subscriptions">Update %1$d subscriptions: %2$s</string>
+    <string name="back">Back</string>
+    <string name="label">Label</string>
+    <string name="search_language">Search Language</string>
+    <string name="show_notification_about_new_articles">Show notification about new articles</string>
+    <string name="how_often_to_update_news">How often to update news</string>
+    <string name="update_interval">Update Interval</string>
+    <string name="select_language_for_news_search">Select language for news search</string>
+    <string name="notifications">Notifications</string>
+    <string name="save_mobile_data">Save mobile data</string>
+    <string name="update_only_via_wi_fi">Update only via Wi-Fi</string>
+    <string name="minutes">%1$d minutes</string>
+    <string name="hour">%1$d hour</string>
+    <string name="hours">%1$d hours</string>
+    <string name="settings">Settings</string>
+</resources>

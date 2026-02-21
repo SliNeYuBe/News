@@ -1,0 +1,121 @@
+package com.chukmaldin.news.di
+
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.content.getSystemService
+import androidx.room.Room
+import androidx.work.WorkManager
+import com.chukmaldin.news.data.local.NewsDao
+import com.chukmaldin.news.data.local.NewsDatabase
+import com.chukmaldin.news.data.remote.NewsApiService
+import com.chukmaldin.news.data.repository.NewsRepositoryImpl
+import com.chukmaldin.news.data.repository.SettingsRepositoryImpl
+import com.chukmaldin.news.domain.repository.NewsRepository
+import com.chukmaldin.news.domain.repository.SettingsRepository
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Converter
+import retrofit2.Retrofit
+import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.create
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface DataModule {
+
+    @Binds
+    @Singleton
+    fun bindNewsRepository(
+        impl: NewsRepositoryImpl
+    ): NewsRepository
+
+    @Binds
+    @Singleton
+    fun bindSettingsRepository(
+        impl: SettingsRepositoryImpl
+    ): SettingsRepository
+
+    companion object {
+
+        @Provides
+        @Singleton
+        fun provideWorkManager(
+            @ApplicationContext context: Context
+        ): WorkManager = WorkManager.getInstance(context)
+
+        @Provides
+        @Singleton
+        fun provideJson(): Json {
+            return Json {
+                // Игнорирование ключей в json
+                ignoreUnknownKeys = true
+                // Если прилетает null, то используется дефолтное значение свойств
+                coerceInputValues = true
+            }
+        }
+
+        @Provides
+        @Singleton
+        fun provideConverterFactory(
+            json: Json
+        ): Converter.Factory {
+            // Конвертирует Json файл в классы NewsResponeDto и от него зависимые
+            return json.asConverterFactory(
+                "application/json".toMediaType())
+        }
+
+        @Provides
+        @Singleton
+        fun provideRetrofit(
+            converterFactory: Converter.Factory
+        ): Retrofit {
+            // Объект Retrofit который и будет заниматься созданием класса NewsApiService
+            return Retrofit.Builder()
+                // Базовый url api (Обязательно в конце '/')
+                .baseUrl("https://newsapi.org/")
+                .addConverterFactory(converterFactory)
+                .build()
+        }
+
+        @Provides
+        @Singleton
+        fun provideApiService(
+            retrofit: Retrofit
+        ): NewsApiService {
+            return retrofit.create()
+        }
+
+        @Singleton
+        @Provides
+        fun provideNewsDatabase(
+            @ApplicationContext context: Context
+        ): NewsDatabase {
+            return Room.databaseBuilder(
+                context = context,
+                klass = NewsDatabase::class.java,
+                name =  "news.db"
+            ).fallbackToDestructiveMigration(dropAllTables = true).build()
+        }
+
+        @Provides
+        @Singleton
+        fun provideNewsDao(
+            database: NewsDatabase
+        ): NewsDao = database.newsDao()
+
+        @Provides
+        @Singleton
+        fun provideNotificationManager(
+            @ApplicationContext context: Context
+        ): NotificationManager? {
+            return context.getSystemService<NotificationManager>()
+        }
+    }
+}
