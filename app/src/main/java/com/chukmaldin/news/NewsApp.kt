@@ -16,9 +16,6 @@ class NewsApp: Application(), Configuration.Provider {
     @Inject
     lateinit var appStartupManager: AppStartupManager
 
-    // Ctrl + I
-    // Функциями является все что выполняется определенное действие
-    // Свойства - объект (в данном случае получить объект)
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)

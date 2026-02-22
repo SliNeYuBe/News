@@ -17,7 +17,6 @@ class NotificationsHelper @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val notificationManager: NotificationManager?
 ) {
-    // Нужно соблюдать порядок объявления свойств и init блоков
     init {
         createNotificationChannel()
     }

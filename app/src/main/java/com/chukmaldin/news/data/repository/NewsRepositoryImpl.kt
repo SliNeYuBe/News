@@ -56,8 +56,6 @@ class NewsRepositoryImpl @Inject constructor(
         return try {
             newsApiService.loadArticles(topic, language.toQueryParam()).toDbModels(topic)
         } catch (e: Exception) {
-            // ОБЯЗАТЕЛЬНО ПРОБРАСЫВАЕМ CancellationException ДАЛЬШЕ К РОДИТЕЛЯМ,
-            // Т. К. ЭТО НЕ ОШИБКА, А СПЕЦИАЛЬНЫЙ МЕХАНИЗМ, ЗАШИТЫЙ В КОД
             if (e is CancellationException) {
                 throw e
             }
@@ -72,14 +70,12 @@ class NewsRepositoryImpl @Inject constructor(
 
     override suspend fun updateArticlesForAllSubscriptions(language: Language): List<String> {
         val updatedTopics = mutableListOf<String>()
-        // Не подписываемся (т.е. нет .launch()). Мы просто берем текущее значение
         val subscriptions = newsDao.getAllSubscriptions().first()
         coroutineScope {
             subscriptions.forEach {
                 launch {
                     val updated = updateArticlesForTopic(it.topic, language)
                     if (updated) {
-                        // Используется один поток, не будет состояния гонки
                         withContext(Dispatchers.Main) {
                             updatedTopics.add(it.topic)
                         }
@@ -110,7 +106,6 @@ class NewsRepositoryImpl @Inject constructor(
             .setRequiresBatteryNotLow(true)
             .build()
 
-        // МИНИМУМ 15 МИНУТ
         val request = PeriodicWorkRequestBuilder<RefreshDataWorker>(
             refreshConfig.interval.minutes.toLong(), TimeUnit.MINUTES
         )
