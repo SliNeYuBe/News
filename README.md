@@ -33,3 +33,8 @@
 - Presentation (UI + ViewModel)
 - Domain (Use Cases)
 - Data (Repository + DataSource)
+
+## Установка
+`git clone https://github.com/SliNeYuBe/Notes.git`
+
+Откройте проект в Android Studio Arctic Fox или новее.
