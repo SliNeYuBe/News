@@ -4,6 +4,7 @@
 
 ## Скриншоты
 <img width="272" height="573" alt="image" src="https://github.com/user-attachments/assets/4735830b-d84a-4e9d-b659-43fc518de032" />
+<img width="266" height="573" alt="image" src="https://github.com/user-attachments/assets/e9e41bb4-93a4-4698-bf34-5db1b28f860f" />
 
 ## Функционал
 - Реализовал UI на Jetpack Compose
