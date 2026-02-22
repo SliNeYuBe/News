@@ -240,8 +240,6 @@ private fun Subscriptions(
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
             value =  query,
-            // Если инициализировать переменную функцией (т.е. не открывать скобки {} ),
-            // то будет создавтаься меньше объектов в памяти
             onValueChange = onQueryChanged,
             label = {
                 Text(stringResource(R.string.what_interests_you))
@@ -302,7 +300,6 @@ private fun ArticleCard(
     modifier: Modifier = Modifier,
     article: Article
 ) {
-    // По сути Column, но с заданными настройками
     Card(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -368,7 +365,6 @@ private fun ArticleCard(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val context = LocalContext.current
-            // Иконка и текст в кнопке автоматически центрированы
             Button(
                 modifier = Modifier.weight(1f),
                 onClick = {
@@ -387,8 +383,6 @@ private fun ArticleCard(
             Button(
                 modifier = Modifier.weight(1f),
                 onClick = {
-                    // Если Activity умеет обрабатывать ACTION_SEND с типом text,
-                    // то необходимы текст она будет доставать по ключу Intent.EXTRA_TEXT
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
                         putExtra(Intent.EXTRA_TEXT,

@@ -25,7 +25,6 @@ class RefreshDataWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         Log.d("RefreshDataWorker", "Start")
-        // Текущие настройки
         val settings = getSettingsUseCase().first()
         val updatedTopics = updateSubscribedArticlesUseCase()
         if (updatedTopics.isNotEmpty() && settings.notificationsEnabled) {

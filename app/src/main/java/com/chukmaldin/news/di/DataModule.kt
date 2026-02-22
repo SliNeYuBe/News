@@ -54,9 +54,7 @@ interface DataModule {
         @Singleton
         fun provideJson(): Json {
             return Json {
-                // Игнорирование ключей в json
                 ignoreUnknownKeys = true
-                // Если прилетает null, то используется дефолтное значение свойств
                 coerceInputValues = true
             }
         }
@@ -66,7 +64,6 @@ interface DataModule {
         fun provideConverterFactory(
             json: Json
         ): Converter.Factory {
-            // Конвертирует Json файл в классы NewsResponeDto и от него зависимые
             return json.asConverterFactory(
                 "application/json".toMediaType())
         }
@@ -76,9 +73,7 @@ interface DataModule {
         fun provideRetrofit(
             converterFactory: Converter.Factory
         ): Retrofit {
-            // Объект Retrofit который и будет заниматься созданием класса NewsApiService
             return Retrofit.Builder()
-                // Базовый url api (Обязательно в конце '/')
                 .baseUrl("https://newsapi.org/")
                 .addConverterFactory(converterFactory)
                 .build()

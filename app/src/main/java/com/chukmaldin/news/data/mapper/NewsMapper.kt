@@ -20,7 +20,6 @@ fun NewsResponseDto.toDbModels(topic: String): List<ArticleDbModel> {
     }
 }
 
-// Создает уникальные статьи
 fun List<ArticleDbModel>.toEntities(): List<Article> {
     return map {
         Article(

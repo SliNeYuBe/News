@@ -16,10 +16,7 @@ class AddSubscriptionUseCase @Inject constructor(
 
     suspend operator fun invoke(topic: String) {
         newsRepository.addSubscription(topic)
-        // Обязательно запускать через контекст viewModel,
-        // иначе запрос не будет удаляться из поиска до полной загрузки статей
         CoroutineScope(currentCoroutineContext()).launch {
-            // Настройки лучше брать внутри скоупа, так как именно тут мы их и используем
             val settings = settingsRepository.getSettings().first()
             newsRepository.updateArticlesForTopic(topic, settings.language)
         }

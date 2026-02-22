@@ -122,8 +122,6 @@ fun SettingsScreen(
                             SettingSwitch(
                                 checked = currentState.notificationsEnabled,
                                 onCheckedChange = { enabled ->
-                                    // Если разрешение уже дано, отработает onResult у permissionLauncher
-                                    // с it == true, так как разрешение было дано ранее
                                     if (enabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                         permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
                                     } else {

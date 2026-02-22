@@ -15,9 +15,6 @@ class StartRefreshDataUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke() {
-        // Используем RefreshConfig потому что не должны реагировать на notificationsEnabled
-        // Если бы мы оставили Settings, то при изменении notificationsEnabled
-        // distinctUntilChanged() срабатывал и перезапуска WorkManager (Service)
         settingsRepository.getSettings()
             .map { it.toRefreshConfig() }
             .distinctUntilChanged()

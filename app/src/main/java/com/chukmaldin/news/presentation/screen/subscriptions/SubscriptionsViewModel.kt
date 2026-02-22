@@ -35,8 +35,6 @@ class SubscriptionsViewModel @Inject constructor(
     private val _state = MutableStateFlow(SubscriptionsState())
     val state = _state.asStateFlow()
 
-    // Инициализировать нужно после state.
-    // Если инициализировать до state, то программа упадет с ошибкой, так как state еще не будет создан
     init {
         observeSubscriptions()
         observeSelectedTopics()
@@ -93,19 +91,14 @@ class SubscriptionsViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun observeSelectedTopics() {
         state.map { it.selectedTopics }
-            // distinctUntilChanged() - Если selectedTopics изменился, то код будет продолжаться, иначе нет
             .distinctUntilChanged()
-            // Меняет и закрывает только те flow, которые внутри flatMapLatest
             .flatMapLatest {
                 getArticlesByTopicsUseCase(it)
             }
-            // Получает flow базы данных. Теперь при изменении БД будет поступать новый обработанный List<Article>.
-            // Каждый из них мы будем еще сами обрабатывать в .onEach()
             .onEach {
                 _state.update { previousState ->
                     previousState.copy(articles = it)
                 }
-            // Подписываемся на изменения
             }.launchIn(viewModelScope)
     }
 
@@ -122,7 +115,6 @@ class SubscriptionsViewModel @Inject constructor(
     }
 }
 
-// При всех этих командах изменяется состояние экрана
 sealed interface SubscriptionsCommand {
 
     data class InputTopic(val query: String): SubscriptionsCommand
@@ -138,7 +130,6 @@ sealed interface SubscriptionsCommand {
     data class RemoveSubscription(val topic: String): SubscriptionsCommand
 }
 
-// Без sealed class так как экран всегда находится в одном состоянии, но с разными данными
 data class SubscriptionsState(
     val query: String = "",
     val subscriptions: Map<String, Boolean> = mapOf(),
