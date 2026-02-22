@@ -35,6 +35,6 @@
 - Data (Repository + DataSource)
 
 ## Установка
-`git clone https://github.com/SliNeYuBe/Notes.git`
+`git clone https://github.com/SliNeYuBe/News.git`
 
 Откройте проект в Android Studio Arctic Fox или новее.
