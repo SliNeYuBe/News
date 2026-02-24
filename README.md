@@ -3,9 +3,8 @@
 Новостное приложение с фильтрацией контента по ключевым словам пользователя.
 
 ## Скриншоты
-<img width="272" height="573" alt="Снимок экрана 2026-02-24 190153" src="https://github.com/user-attachments/assets/1608362f-8676-4ac0-99c4-d27389f5b821" />
-<img width="272" height="573" alt="Снимок экрана 2026-02-24 190215" src="https://github.com/user-attachments/assets/017837fd-090e-4f8c-ad85-e4a75f135553" />
-<img width="272" height="573" alt="Снимок экрана 2026-02-22 061443" src="https://github.com/user-attachments/assets/946e289c-4ae3-4c93-8f57-8b680acdd1bf" />
+<img width="360" height="752" alt="Снимок экрана 2026-02-24 190153" src="https://github.com/user-attachments/assets/1608362f-8676-4ac0-99c4-d27389f5b821" />
+<img width="360" height="752" alt="Снимок экрана 2026-02-24 190215" src="https://github.com/user-attachments/assets/017837fd-090e-4f8c-ad85-e4a75f135553" />
 
 ## Функционал
 - Реализовал UI на Jetpack Compose
