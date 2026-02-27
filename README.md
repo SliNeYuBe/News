@@ -23,7 +23,6 @@
 - Room (локальная БД)
 - Hilt (DI)
 - Coroutines + Flow
-- JUnit + Mockk (тесты)
 - WorkManager
 - Intent / Pending Intent
 - Notification
